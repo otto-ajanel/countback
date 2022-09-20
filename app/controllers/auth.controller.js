@@ -10,6 +10,7 @@ const bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   // Save User to Database
+  console.log("user singpup")
   try {
     const user = await User.create({
       username: req.body.username,
@@ -47,7 +48,7 @@ exports.signin = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      return res.status(401).send({ message: "User Not found." });
     }
 
     const passwordIsValid = bcrypt.compareSync(
@@ -78,9 +79,10 @@ exports.signin = async (req, res) => {
       username: user.username,
       email: user.email,
       roles: authorities,
+      toke: token
     });
   } catch (error) {
-    return res.status(500).send({ message: error.message });
+    return res.status(500).send({ message: "estado error 500" });
   }
 };
 

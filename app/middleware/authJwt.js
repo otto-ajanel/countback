@@ -71,11 +71,11 @@ isModeratorOrAdmin = async (req, res, next) => {
     const roles = await user.getRoles();
 
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "moderator") {
+      if (roles[i].name ==="Moderador") {
         return next();
       }
 
-      if (roles[i].name === "admin") {
+      if (roles[i].name === "Administrador") {
         return next();
       }
     }
