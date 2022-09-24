@@ -34,15 +34,18 @@ exports.allUsers = async (req, res) => {
 exports.getUserId = async (req, res) => {
   const id = req.params.id
   try {
-    console.log("iniciando get user by Id")
+  
     const user = await User.findAll({
       where: {
         id: id
       }
     })
-    res.status(200).send({
-      'data': user
-    })
+    if (user) {
+      res.status(200).send({
+        'data': user
+      })  
+    }
+    
   } catch (error) {
     res.status(400).send({
       'message': ' Eror de servidor '

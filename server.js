@@ -12,14 +12,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  cookieSession({
-    name: "bezkoder-session",
-    secret: "COOKIE_SECRET", // should use as secret environment variable
-    httpOnly: true,
-    sameSite: 'strict'
-  })
-);
+
 
 // database
 const db = require("./app/models");

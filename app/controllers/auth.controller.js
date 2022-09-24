@@ -79,7 +79,7 @@ exports.signin = async (req, res) => {
       username: user.username,
       email: user.email,
       roles: authorities,
-      toke: token
+      token: token
     });
   } catch (error) {
     return res.status(500).send({ message: "estado error 500" });
