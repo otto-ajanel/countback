@@ -10,36 +10,30 @@ const bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   // Save User to Database
-  console.log("user singpup")
+  console.log(req.body.username)
+  console.log(req.body.password)
+  console.log(req.body.email)
+
   try {
     const user = await User.create({
       username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
     });
+    if (user) {
 
-    if (req.body.roles) {
-      const roles = await Role.findAll({
-        where: {
-          name: {
-            [Op.or]: req.body.roles,
-          },
-        },
-      });
-
-      const result = user.setRoles(roles);
-      if (result) res.send({ message: "User registered successfully!" });
-    } else {
-      // user has role = 1
-      const result = user.setRoles([1]);
-      if (result) res.send({ message: "User registered successfully!" });
+      res.status(200).send({ message: "User registered successfully!" });
     }
+
+
   } catch (error) {
+
     res.status(500).send({ message: error.message });
   }
 };
 
 exports.signin = async (req, res) => {
+  console.log(req.body)
   try {
     const user = await User.findOne({
       where: {
@@ -72,7 +66,7 @@ exports.signin = async (req, res) => {
       authorities.push("ROLE_" + roles[i].name.toUpperCase());
     }
 
-    req.session.token = token;
+
 
     return res.status(200).send({
       id: user.id,

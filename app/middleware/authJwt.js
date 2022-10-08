@@ -5,13 +5,10 @@ const User = db.user;
 
 verifyToken = (req, res, next) => {
   let token = req.headers.authorization;
-  
-
-
-
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
+      console.log(err)
       return res.status(401).send({
         message: "Unauthorized!",
       });
@@ -69,7 +66,7 @@ isModeratorOrAdmin = async (req, res, next) => {
     const roles = await user.getRoles();
 
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name ==="Moderador") {
+      if (roles[i].name === "Moderador") {
         return next();
       }
 

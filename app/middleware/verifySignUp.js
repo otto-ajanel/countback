@@ -12,6 +12,7 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
     });
 
     if (user) {
+      console.log(user)
       return res.status(400).send({
         message: "Failed! Username is already in use!"
       });
@@ -25,6 +26,7 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
     });
 
     if (user) {
+      console.log(user)
       return res.status(400).send({
         message: "Failed! Email is already in use!"
       });
@@ -33,7 +35,7 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
     next();
   } catch (error) {
     return res.status(500).send({
-      message: error.message
+      message: error
     });
   }
 };
@@ -49,13 +51,12 @@ checkRolesExisted = (req, res, next) => {
       }
     }
   }
-  
+
   next();
 };
 
 const verifySignUp = {
-  checkDuplicateUsernameOrEmail,
-  checkRolesExisted
+  checkDuplicateUsernameOrEmail
 };
 
 module.exports = verifySignUp;

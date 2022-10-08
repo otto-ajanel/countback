@@ -28,7 +28,7 @@ module.exports = function (app) {
     controller.getUserId
   );
   app.put("/api/user/:id", [authJwt.verifyToken], controller.updateUserId);
-  app.del("/api/user/:id", [authJwt.verifyToken], controller.deleteUserId)
+  app.delete("/api/user/:id", [authJwt.verifyToken], controller.deleteUserId)
 
 
   app.get(
