@@ -13,6 +13,7 @@ module.exports = function (app) {
 
   app.get(
     "/api/cliente/all",
+    [authJwt.verifyToken],
     controller.allClientes
   );
 

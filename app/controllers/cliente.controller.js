@@ -34,7 +34,7 @@ exports.allClientes = async (req, res) => {
 exports.getClienteId = async (req, res) => {
   const id = req.params.id
   try {
-  
+
     const cliente = await Cliente.findAll({
       where: {
         id: id
@@ -43,9 +43,9 @@ exports.getClienteId = async (req, res) => {
     if (user) {
       res.status(200).send({
         'data': cliente
-      })  
+      })
     }
-    
+
   } catch (error) {
     res.status(400).send({
       'message': ' Eror de servidor '
@@ -54,17 +54,17 @@ exports.getClienteId = async (req, res) => {
 }
 
 exports.updateClienteId = async (req, res) => {
+  const id = req.params.id
+  console.log(req.body.nombre)
   try {
-    const id = req.params.id
-    console.log(rq.body.nombre)
     const cliente = await Cliente.update({
       nombre: req.body.nombre,
       nit: req.body.nit,
-      dpi:req.body.dpi,
-      fechaNacimiento:req.body.fechaNacimiento,
-      telefono:req.body.telefono,
-      email:req.body.email
-     
+      dpi: req.body.dpi,
+      fechaNacimiento: req.body.fechaNacimiento,
+      telefono: req.body.telefono,
+      email: req.body.email
+
     }, {
       where: {
         id: id
@@ -97,20 +97,20 @@ exports.deleteClienteId = async (req, res) => {
     })
   }
 }
-exports.createCliente= async (req, res) => {
+exports.createCliente = async (req, res) => {
   try {
     const cliente = await Cliente.create({
       nombre: req.body.nombre,
       nit: req.body.nit,
-      dpi:req.body.dpi,
-      fechaNacimiento:req.body.fechaNacimiento,
-      telefono:req.body.telefono,
-      email:req.body.email
+      dpi: req.body.dpi,
+      fechaNacimiento: req.body.fechaNacimiento,
+      telefono: req.body.telefono,
+      email: req.body.email
     });
 
 
-     res.status(200).send({ message: "Cliente registered successfully!" });
-    
+    res.status(200).send({ message: "Cliente registered successfully!" });
+
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
