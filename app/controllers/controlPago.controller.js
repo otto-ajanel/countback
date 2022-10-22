@@ -1,4 +1,4 @@
-//const { sequelize } = require("../models");
+const { sequelize } = require("../models");
 const db = require("../models");
 const ControlPago = db.controlPago;
 
@@ -8,21 +8,22 @@ const ControlPago = db.controlPago;
 exports.allControlPago = async (req, res) => {
   try {
 
-    const controlPagos = await ControlPago.findAll();
-    /*
-    const constancias = await sequelize.query(
-      "select c.id, c.nombre as constancia, cl.nombre as cliente, cl.nit, cl.dpi,c.clienteId FROM constancias c INNER JOIN  clientes cl on c.clienteId= cl.id",
+
+    const controlPagos = await sequelize.query(
+      "SELECT c.id,cl.nombre, cl.nit, CASE WHEN c.servicioId=1 THEN 'Actualización' WHEN c.servicioId=2 THEN 'Honorarios'  WHEN c.servicioId = 3 THEN 'Constancia' WHEN c.servicioId=4 THEN 'Inscripción'   END as servicio, CASE   WHEN c.servicioId < 4 THEN 50    ELSE 300 END as totalPago FROM  controlpagos c inner join  clientes cl on cl.id=c.clienteId",
       {
         type: sequelize.QueryTypes.SELECT
       }
-    )*/
+    )
     res.status(200).send({
       'data': controlPagos
     });
   } catch (error) {
     res.status(400).send({
       'message': 'Error de servidor'
+      
     })
+    console.log(error)
   }
 };
 

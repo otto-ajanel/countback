@@ -36,6 +36,7 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/cliente.routes")(app);
 require("./app/routes/constancia.routes")(app)
 require("./app/routes/controlPago.routes")(app)
+require("./app/routes/factura.routes")(app)
 
 
 // set port, listen for requests

@@ -29,6 +29,8 @@ db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.cliente = require("../models/cliente.model.js")(sequelize, Sequelize)
 db.constancia = require("../models/constancia.model")(sequelize, Sequelize)
 db.controlPago = require("../models/controlPago.model")(sequelize, Sequelize)
+db.factura = require("../models/factura.model")(sequelize, Sequelize);
+
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
