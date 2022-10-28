@@ -9,6 +9,9 @@ module.exports = function (app) {
     );
     next();
   });
+  app.get(
+    "/api/controlPago/reportServices", [authJwt.verifyToken], controller.reportServices
+  );
 
   app.get(
     "/api/controlPago/all", [authJwt.verifyToken], controller.allControlPago

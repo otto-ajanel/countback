@@ -3,7 +3,25 @@ const db = require("../models");
 const ControlPago = db.controlPago;
 
 
+exports.reportServices = async (req, res) => {
 
+  try {
+    const services = await sequelize.query(
+      "SELECT COUNT(c.id) as cantidad, CASE WHEN c.servicioId=1 THEN 'Actualización' WHEN c.servicioId=2 THEN 'Honorarios'  WHEN c.servicioId = 3 THEN 'Constancia' WHEN c.servicioId=4 THEN 'Inscripción'   END as servicio FROM  controlpagos c inner join  clientes cl on cl.id=c.clienteId GROUP BY c.servicioId",
+      {
+        type: sequelize.QueryTypes.SELECT
+      }
+    )
+    res.status(200).send({
+      'data': services
+    })
+  } catch (error) {
+
+    res.status(405).send({
+      'messages': error
+    });
+  }
+}
 
 exports.allControlPago = async (req, res) => {
   try {
@@ -21,7 +39,7 @@ exports.allControlPago = async (req, res) => {
   } catch (error) {
     res.status(400).send({
       'message': 'Error de servidor'
-      
+
     })
     console.log(error)
   }
